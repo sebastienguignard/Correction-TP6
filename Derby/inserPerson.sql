@@ -1,0 +1,48 @@
+connect 'jdbc:derby://localhost:1527/BaseDeGens';
+
+INSERT INTO Person ( id, firstName, lastName ) VALUES
+( 1  , 'Dupont'        , 'Durant' )     ,
+( 2  , 'George'        , 'Grement' )    ,
+( 3  , 'Cabotin'       , 'Botin' )      ,
+( 4  , 'Pedantic'      , 'Northcutt' )  ,
+( 5  , 'Gigantic'      , 'Dubinsky' )   ,
+( 6  , 'Elated'        , 'Brattain' )   ,
+( 7  , 'Desperate'     , 'Cori' )       ,
+( 8  , 'Stoic'         , 'Noether' )    ,
+( 9  , 'Condescending' , 'Agnesi' )     ,
+( 10 , 'Pedantic'      , 'Perlman' )    ,
+( 11 , 'Elegant'       , 'Meninsky' )   ,
+( 12 , 'Jean'          , 'Yve' )        ,
+( 13 , 'Nauseous'      , 'Agnesi' )     ,
+( 14 , 'Reverent'      , 'Mestorf' )    ,
+( 15 , 'Loving'        , 'Kare' )       ,
+( 16 , 'Cranky'        , 'Pike' )       ,
+( 17 , 'Small'         , 'Sinoussi' )   ,
+( 18 , 'Cocky'         , 'Leavitt' )    ,
+( 19 , 'Sad'           , 'Fermi' )      ,
+( 20 , 'Determined'    , 'Bardeen' )    ,
+( 21 , 'Gigantic'      , 'Einstein' )   ,
+( 22 , 'Amazing'       , 'Archimedes' )
+;
+
+INSERT INTO Relations ( personID, otherPersonID, label ) VALUES
+( 4  , 6  , 'ami' )          ,
+( 1  , 11 , 'boucheTrou' )   ,
+( 9  , 8  , 'ami' )          ,
+( 8  , 9  , 'ami' )          ,
+( 22 , 21 , 'connaissance' ) ,
+( 21 , 22 , 'connaissance' ) ,
+( 2  , 21 , 'connaissance' ) ,
+( 12 , 15 , 'couple' )       ,
+( 18 , 6  , 'ami' )          ,
+( 11 , 17 , 'confident' )    ,
+( 15 , 8  , 'marié' )        ,
+( 8  , 15 , 'marié' )        ,
+( 22 , 15 , 'ami' )          ,
+( 15 , 22 , 'boucheTrou' )   ,
+( 14 , 20 , 'connaissance' ) ,
+( 1  , 20 , 'connaissance' ) ,
+( 1  , 15 , 'connaissance' ) ,
+( 3  , 15 , 'connaissance' ) ,
+( 3  , 9  , 'ami' )          ,
+( 11 , 5  , 'ami' );

@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+
+<!DOCTYPE html>
+
+<html lang='fr'
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h='http://java.sun.com/jsf/html'
+>
+
+<f:metadata>
+    <f:viewParam name="id" value="#{personBean.id}" />
+</f:metadata>
+
+<h:head>
+    <title>
+        <h:outputText value="#{personBean.personne.firstName}"/>
+    </title>
+</h:head>
+<h:body>
+<f:view>
+
+<h:outputLink value="persons.faces" >
+    <h:outputText value="Annuaires des personnes" />
+</h:outputLink>
+
+<h1>Affichage d'une personne V2</h1>
+<h2><h:outputText value="#{personBean.personne.firstName} #{personBean.personne.lastName}"/></h2>
+
+<h:form>
+<ul>
+    <li>
+        Identifiant : <h:outputText value="#{personBean.personne.id}"/>
+    </li>
+    <li>
+        <h:outputLabel id="champPrenom" for="prenomID" value="Prénom : " />
+        <h:inputText id="prenomID" value="#{personBean.personne.firstName}" />
+    </li>
+    <li>
+        <h:outputLabel id="champNom" for="nomID" value="Nom : " />
+        <h:inputText id="nomID" value="#{personBean.personne.lastName}" />
+    </li>
+</ul>
+<h:commandButton value="Mettre à jour" action="#{personBean.majPerson()}" />
+</h:form>
+
+<h1>Relations de <h:outputText value="#{personBean.personne.firstName}"/></h1>
+<h:outputText value="Aucune relations" rendered="#{personBean.relations.size() le 0}"/>
+
+<h:dataTable value="#{personBean.relations}" var="p" rendered="#{personBean.relations.size() gt 0}">
+
+    <h:column>
+        <f:facet name="header">ID</f:facet>
+        <h:outputText value="#{p.personne.id}" />
+    </h:column>
+
+    <h:column>
+        <f:facet name="header">Noms</f:facet>
+        <h:outputLink value="person.faces" >
+            <f:param name="id" value="#{p.personne.id}"/>
+            <h:outputText value="#{p.personne.firstName} #{p.personne.lastName}" />
+        </h:outputLink>
+    </h:column>
+
+    <h:column>
+        <f:facet name="header">Type de relation</f:facet>
+        <h:outputText value="#{p.label}" />
+    </h:column>
+
+</h:dataTable>
+
+<h2>Rechercher une personne</h2>
+<h:form>
+    <h:outputLabel id="champNom" for="nomIDRecherche" value="Recherche : " />
+    <h:inputText id="nomIDRecherche" value="#{personBean.chaineRecherche}" />
+    <h:commandButton value="Rechercher" action="#{personBean.faireRecherche()}" />
+</h:form>
+
+<h2>
+    <h:outputText value="Résultat recherche" rendered="#{personBean.tailleResultat ge 0}"/>
+</h2>
+
+<h:outputText value="Aucun résultats pour la recherche" rendered="#{personBean.tailleResultat eq 0}" />
+<h:outputText value="Les personnes déjà ajoutée en relation apparaitront dans la liste des résultats mais ne pourront pas être mise à nouveau en relation." rendered="#{personBean.tailleResultat gt 0}" />
+<h:dataTable value="#{personBean.resultatRecherche}" var="p" rendered="#{personBean.tailleResultat gt 0}" >
+
+    <h:column>
+        <f:facet name="header">ID</f:facet>
+        <h:outputText value="#{p.id}" />
+    </h:column>
+
+    <h:column>
+        <f:facet name="header">Noms</f:facet>
+        <h:outputLink value="person.faces" >
+            <f:param name="id" value="#{p.id}"/>
+            <h:outputText value="#{p.firstName} #{p.lastName}" />
+        </h:outputLink>
+    </h:column>
+
+    <h:column>
+        <h:form>
+        <h:commandLink action="#{personBean.ajouterUneRelation( p.id )}" rendered="#{!personBean.estDejaUneRelation( p.id )}" >
+            <h:outputText value="Ajouter une relation" />
+        </h:commandLink>
+        </h:form>
+        <h:outputText value="Déjà en relation" rendered="#{personBean.estDejaUneRelation( p.id )}"/>
+    </h:column>
+
+</h:dataTable>
+
+</f:view>
+</h:body>
+</html>
